@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.core import serializers
 from .models import Feed
@@ -17,3 +18,9 @@ def index(request):
 def base_layout(request):
     template = 'posts/base.html'
     return render(request, template)
+
+
+def getdata(request):
+    results = Feed.objects.all()
+    jsondata = serializers.serialize('json', results)
+    return HttpResponse(jsondata)
